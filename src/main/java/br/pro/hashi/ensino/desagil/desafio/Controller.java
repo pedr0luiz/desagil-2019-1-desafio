@@ -1,5 +1,7 @@
 package br.pro.hashi.ensino.desagil.desafio;
 
+import br.pro.hashi.ensino.desagil.desafio.model.CpuPlayer;
+import br.pro.hashi.ensino.desagil.desafio.model.HumanPlayer;
 import br.pro.hashi.ensino.desagil.desafio.model.Model;
 
 import java.awt.event.ActionEvent;
@@ -23,7 +25,22 @@ public class Controller implements KeyListener, ActionListener {
 
     @Override
     public void keyPressed(KeyEvent event) {
-        System.out.println("keyPressed");
+        HumanPlayer humanPlayer = model.getHumanPlayer();
+        if(event.getKeyCode() == KeyEvent.VK_UP) {
+            humanPlayer.moveUp();
+        }
+        else if(event.getKeyCode() == KeyEvent.VK_RIGHT) {
+            humanPlayer.moveRight();
+        }
+        else if(event.getKeyCode() == KeyEvent.VK_LEFT) {
+            humanPlayer.moveLeft();
+        }
+        else if(event.getKeyCode() == KeyEvent.VK_DOWN) {
+            humanPlayer.moveDown();
+        }
+
+        view.repaint();
+
     }
 
     @Override

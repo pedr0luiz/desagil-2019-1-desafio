@@ -5,6 +5,8 @@ import br.pro.hashi.ensino.desagil.desafio.model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 // Estender a classe JPanel e reescrever o método
 // paintComponent é um jeito tradicional de criar
@@ -15,19 +17,16 @@ public class View extends JPanel {
     // em pixels, da célula do tabuleiro.
     private static final int CELL_SIZE = 50;
 
-
     private final Model model;
-    private final Image targetImage;
-    private final Image humanPlayerImage;
-    private final Image cpuPlayerImage;
-
+    private final HashMap<Element, Image> map;
 
     public View(Model model) {
         this.model = model;
 
-        targetImage = getImage("target.png");
-        humanPlayerImage = getImage("human-player.png");
-        cpuPlayerImage = getImage("cpu-player.png");
+        map = new HashMap<>();
+        map.put(model.getHumanPlayer(), getImage("human-player.png"));
+        map.put(model.getCpuPlayer(), getImage("cpu-player.png"));
+        map.put(model.getTarget(), getImage("target.png"));
 
         Board board = model.getBoard();
 
@@ -62,20 +61,12 @@ public class View extends JPanel {
 
         int row, col;
 
-        Element target = model.getTarget();
-        row = target.getRow();
-        col = target.getCol();
-        g.drawImage(targetImage, col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE, this);
-
-        CpuPlayer cpuPlayer = model.getCpuPlayer();
-        row = cpuPlayer.getRow();
-        col = cpuPlayer.getCol();
-        g.drawImage(cpuPlayerImage, col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE, this);
-
-        HumanPlayer humanPlayer = model.getHumanPlayer();
-        row = humanPlayer.getRow();
-        col = humanPlayer.getCol();
-        g.drawImage(humanPlayerImage, col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE, this);
+        for(Map.Entry<Element, Image> pair: map.entrySet()){
+            Element element = pair.getKey();
+            row = element.getRow();
+            col = element.getCol();
+            g.drawImage(pair.getValue(), col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE, this);
+        }
 
         // Linha necessária para evitar atrasos
         // de renderização em sistemas Linux.

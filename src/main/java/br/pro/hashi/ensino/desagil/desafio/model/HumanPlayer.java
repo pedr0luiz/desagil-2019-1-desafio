@@ -6,18 +6,34 @@ public class HumanPlayer extends Player {
     }
 
     public void moveUp() {
-        System.out.println("up");
+        int rowNow = this.getRow();
+        int nowCol = this.getCol();
+        if(!board.isWall(rowNow-1, nowCol)){
+            this.move(-1,0);
+        }
     }
 
     public void moveRight() {
-        System.out.println("right");
+        int rowNow = this.getRow();
+        int nowCol = this.getCol();
+        if(!board.isWall(rowNow, nowCol+1)){
+            this.move(0,1);
+        }
     }
 
     public void moveDown() {
-        System.out.println("down");
+        int rowNow = this.getRow();
+        int nowCol = this.getCol();
+        if(!board.isWall(rowNow+1, nowCol)){
+            this.move(1,0);
+        }
     }
 
     public void moveLeft() {
-        System.out.println("left");
+        int rowNow = this.getRow();
+        int nowCol = this.getCol();
+        if(!board.isWall(rowNow, nowCol-1)){
+            this.move(0,-1);
+        }
     }
 }

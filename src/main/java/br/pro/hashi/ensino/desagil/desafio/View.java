@@ -1,6 +1,7 @@
 package br.pro.hashi.ensino.desagil.desafio;
 
 import br.pro.hashi.ensino.desagil.desafio.model.Board;
+import br.pro.hashi.ensino.desagil.desafio.model.HumanPlayer;
 import br.pro.hashi.ensino.desagil.desafio.model.Model;
 
 import javax.swing.*;
@@ -47,7 +48,25 @@ public class View extends JPanel {
     // Você nunca deve chamar esse método diretamente. O certo é chamar o método repaint.
     @Override
     public void paintComponent(Graphics g) {
-        System.out.println("paintComponent");
+
+        int numRows = model.getBoard().getNumRows();
+        int numCols = model.getBoard().getNumCols();
+
+        for(int i=0; i<numRows; i++){
+            for(int j=0; j<numCols; j++){
+                if(model.getBoard().isWall(i,j)){
+                    g.setColor(Color.BLACK);
+                }
+                else{
+                    g.setColor(Color.WHITE);
+                }
+                g.fillRect(j*CELL_SIZE,i*CELL_SIZE,CELL_SIZE,CELL_SIZE);
+            }
+        }
+
+        g.drawImage(humanPlayerImage,0,0,CELL_SIZE,CELL_SIZE,this);
+        g.drawImage(cpuPlayerImage,numCols,numCols,CELL_SIZE,CELL_SIZE,this);
+        g.drawImage(targetImage,0,0,CELL_SIZE,CELL_SIZE,this);
 
         // Linha necessária para evitar atrasos
         // de renderização em sistemas Linux.

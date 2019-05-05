@@ -39,7 +39,14 @@ public class Board {
             // Note que aqui não faz sentido usar strip ou split.
             String line = reader.readLine();
 
-            System.out.println(line);
+            for(int j = 0; j < numCols; j++){
+                if(line.charAt(j) == '#'){
+                    wall[i][j] = true;
+                }
+                else{
+                    wall[i][j] = false;
+                }
+            }
         }
 
         reader.close();

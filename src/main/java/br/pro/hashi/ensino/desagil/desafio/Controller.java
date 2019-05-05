@@ -50,6 +50,8 @@ public class Controller implements KeyListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("actionPerformed");
+        CpuPlayer cpuPlayer = model.getCpuPlayer();
+
+        cpuPlayer.move();
     }
 }

@@ -6,6 +6,7 @@ public class CpuPlayer extends Player {
     }
 
     public void move() {
+
         System.out.println("move");
     }
 }

@@ -52,6 +52,8 @@ public class View extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         Board board = model.getBoard();
+        int targetRow = model.getTarget().getRow();
+        int targetCol = model.getTarget().getCol();
 
         for (int i = 0; i < board.getNumRows(); i++) {
             for (int j = 0; j < board.getNumCols(); j++) {
@@ -71,6 +73,24 @@ public class View extends JPanel {
 
             g.drawImage(image, col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE, this);
         });
+
+        if(model.getHumanPlayer().getRow() == targetRow && model.getHumanPlayer().getCol() == targetCol){
+            model.setWinner(model.getHumanPlayer());
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+            g.setColor(Color.black);
+            g.drawString("Human venceu", 10, 20);
+        }
+        else if(model.getCpuPlayer().getRow() == targetRow && model.getCpuPlayer().getCol() == targetCol){
+            model.setWinner(model.getCpuPlayer());
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+            g.setColor(Color.black);
+            g.drawString("CPU venceu", 10, 20);
+        }
+        else{
+            model.setWinner(null);
+        }
+
+
 
         // Linha necessária para evitar atrasos
         // de renderização em sistemas Linux.

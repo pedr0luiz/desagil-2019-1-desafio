@@ -3,6 +3,7 @@ package br.pro.hashi.ensino.desagil.desafio;
 import br.pro.hashi.ensino.desagil.desafio.model.CpuPlayer;
 import br.pro.hashi.ensino.desagil.desafio.model.HumanPlayer;
 import br.pro.hashi.ensino.desagil.desafio.model.Model;
+import br.pro.hashi.ensino.desagil.desafio.model.Player;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,25 +32,29 @@ public class Controller implements KeyListener, ActionListener {
     @Override
     public void keyPressed(KeyEvent event) {
         HumanPlayer humanPlayer = model.getHumanPlayer();
+        CpuPlayer cpuPlayer = model.getCpuPlayer();
+        Player winner = model.getWinner();
 
         // Para agir de acordo com a tecla que foi pressionada, comparamos o key code do evento com as
         // constantes disponíveis na classe KeyEvent. Uma lista dessas constantes pode ser vista em
         // https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/java/awt/event/KeyEvent.html.
-        switch (event.getKeyCode()) {
-            case KeyEvent.VK_UP:
-                humanPlayer.moveUp();
-                break;
-            case KeyEvent.VK_RIGHT:
-                humanPlayer.moveRight();
-                break;
-            case KeyEvent.VK_DOWN:
-                humanPlayer.moveDown();
-                break;
-            case KeyEvent.VK_LEFT:
-                humanPlayer.moveLeft();
-                break;
-        }
+        if(winner != cpuPlayer){
+            switch (event.getKeyCode()) {
+                case KeyEvent.VK_UP:
+                    humanPlayer.moveUp();
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    humanPlayer.moveRight();
+                    break;
+                case KeyEvent.VK_DOWN:
+                    humanPlayer.moveDown();
+                    break;
+                case KeyEvent.VK_LEFT:
+                    humanPlayer.moveLeft();
+                    break;
+            }
 
+        }
         view.repaint();
     }
 
@@ -65,8 +70,12 @@ public class Controller implements KeyListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         CpuPlayer cpuPlayer = model.getCpuPlayer();
+        HumanPlayer humanPlayer = model.getHumanPlayer();
+        Player winner = model.getWinner();
 
-        cpuPlayer.move();
+        if(winner != humanPlayer){
+            cpuPlayer.move();
+        }
 
         view.repaint();
     }
